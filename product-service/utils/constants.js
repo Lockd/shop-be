@@ -1,25 +1,25 @@
 export const PRODUCT_LIST = [
   {
     count: 1,
-    description: "Глиняный горшок ручной работы покрытый голубой глазурью",
+    description: "Handmade claypot covered in blue glossy glaze ",
     id: "7567ec4b-b10c-48c5-9345-fc73c48a80aa",
     priceUSD: 17,
-    title: "Глиняный горшок",
+    title: "Clay pot",
   },
   {
     count: 1,
-    description: "Фигурка медвежонка ручной работы, слегка убогая",
+    description: "Handmade bear statuette, a bit sloppy",
     id: "7567ec4b-b10c-48c5-9345-fc73c48a80a0",
     priceUSD: 28,
-    title: "Фигурка медвежонок",
+    title: "Bear statuette",
   },
   {
     count: 1,
     description:
-      "Огромная глиняная миска объемом полтора литра, поев из которой вы точно наберёте вес",
+      "Huge bowl made of pot with volume of 1.5 liters. Eating out of this vessel will definately help you gain weight",
     id: "7567ec4b-b10c-48c5-9345-fc73c48a80a2",
     priceUSD: 32,
-    title: "Глиняная миска ha-ha u fat",
+    title: "Clay bowl ha-ha u fat",
   },
 ];
 
