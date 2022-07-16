@@ -67,9 +67,12 @@ definitions:
       title:
         type: "string"
         example: "Ancient Vessel"
-      price:
+      priceUSD:
         type: "number"
         example: 27.53
+      priceEUR:
+        type: "number",
+        example: 26.38
       count:
         type: "integer"
         example: 7

@@ -1,19 +1,19 @@
 "use strict";
-const { PRODUCT_LIST } = require('../utils/constants');
+import { getProductListWithEuroPrices } from '../utils/misc'
 
-module.exports.handler = async (event) => {
-  
-  console.log('get products function is triggered with following event: ', event)
+export const handler = async (event) => {
 
-    return {
+  const productsWithEuroPrices = await getProductListWithEuroPrices();
+
+  return {
     statusCode: 200,
     headers: {
-      "Access-Control-Allow-Headers" : "Content-Type",
+      "Access-Control-Allow-Headers": "Content-Type",
       "Access-Control-Allow-Origin": "http://localhost:3000",
-      "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+      "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
     },
     body: JSON.stringify({
-      products: PRODUCT_LIST
-    })
+      products: productsWithEuroPrices
+    }),
   };
 };

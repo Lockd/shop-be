@@ -3,11 +3,19 @@ frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs16.x
   
   stage: dev
   region: eu-west-1
 
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-webpack
+	
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
 
 functions:
   getProductsList:

@@ -1,9 +1,10 @@
 "use strict";
-const { PRODUCT_LIST } = require('../utils/constants');
+import { getProductListWithEuroPrices } from '../utils/misc'
 
-module.exports.handler = async (event) => {
+export const handler = async (event) => {
   const id = event.path.split('products/')[1] || '';
-  const searchResult = PRODUCT_LIST.find(el => el.id === id);
+  const productsList = await getProductListWithEuroPrices();
+  const searchResult = productsList.find(el => el.id === id);
   
   let responseBody = {};
   let statusCode = 200;
