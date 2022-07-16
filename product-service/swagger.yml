@@ -1,0 +1,85 @@
+swagger: "2.0"
+info:
+  description: "API documentation for AWS epam courses \n https://github.com/Lockd"
+  version: "1.0.0"
+  title: "Swagger for pottery shop"
+host: "z1tvhyxaxg.execute-api.eu-west-1.amazonaws.com"
+basePath: "/"
+tags:
+- name: "products"
+  description: ""
+schemes:
+- "https"
+- "http"
+paths:
+  /products:
+    get:
+      tags:
+      - "products"
+      summary: "Get list of all available products"
+      description: ""
+      operationId: "getProducts"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ListOfProducts"
+  
+  /products/id:
+    get:
+      tags:
+      - "products"
+      summary: "Get product by id"
+      operationId: 'getProductById'
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Product"
+        "404":
+          description: "item with selected id is not found"
+        
+    
+definitions:
+  Product:
+    type: "object"
+    required:
+    - "id"
+    - "title"
+    - "price"
+    - "count"
+    properties:
+      id:
+        type: "string"
+        example: '7567ec4b-b10c-48c5-9345-fc73c48a80a0'
+      title:
+        type: "string"
+        example: "Ancient Vessel"
+      price:
+        type: "number"
+        example: 27.53
+      count:
+        type: "integer"
+        example: 7
+      description:
+        type: "string"
+        example: "Ancient vessel originated 23 million years ago"
+    xml:
+      name: "Product"
+      
+  ListOfProducts:
+    type: array
+    items:
+      $ref: '#/definitions/Product'
