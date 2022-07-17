@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { API_EXCHANGE_BASE_URL, PRODUCT_LIST } from './constants';
 
-const getUsdToEuroRatio = async () => {
+export const getUsdToEuroRatio = async () => {
   const headers = {
     'apikey': process.env.EXCHANGE_API_KEY
   }
@@ -13,10 +13,9 @@ const getUsdToEuroRatio = async () => {
   return ratio;
 }
 
-const getPriceInEuro = (usdPrice, ratio) => usdPrice * ratio
+export const getPriceInEuro = (usdPrice, ratio) => usdPrice * ratio
 
-export const getProductListWithEuroPrices = async () => {
-  const usdToEuroRatio = await getUsdToEuroRatio();
+export const getProductListWithEuroPrices = (usdToEuroRatio) => {
   const productListWithEuroPrices = PRODUCT_LIST.map(el => {
     return {
       ...el,

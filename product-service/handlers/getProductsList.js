@@ -1,19 +1,18 @@
 "use strict";
-import { getProductListWithEuroPrices } from '../utils/misc'
+import { getProductListWithEuroPrices, getUsdToEuroRatio } from "../utils/misc";
+import { GET_HEADERS } from "../utils/constants";
 
-export const handler = async (event) => {
+export const getResponseWithProductsList = (products) => ({
+  statusCode: 200,
+  headers: GET_HEADERS,
+  body: JSON.stringify({
+    products: products,
+  }),
+});
 
-  const productsWithEuroPrices = await getProductListWithEuroPrices();
+export const getProductsList = async (event) => {
+  const usdToEuroRatio = await getUsdToEuroRatio();
+  const productsWithEuroPrices = await getProductListWithEuroPrices(usdToEuroRatio);
 
-  return {
-    statusCode: 200,
-    headers: {
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Allow-Origin": "http://localhost:3000",
-      "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
-    },
-    body: JSON.stringify({
-      products: productsWithEuroPrices
-    }),
-  };
+  return getResponseWithProductsList(productsWithEuroPrices);
 };

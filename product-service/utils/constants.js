@@ -23,4 +23,12 @@ export const PRODUCT_LIST = [
   },
 ];
 
+export const GET_HEADERS = {
+  "Access-Control-Allow-Headers" : "Content-Type",
+  "Access-Control-Allow-Origin": "http://localhost:3000",
+  "Access-Control-Allow-Methods": "OPTIONS, GET"
+}
+
+export const PRODUCT_NOT_FOUND_MESSAGE = 'Sorry, we were not able to find this item';
+
 export const API_EXCHANGE_BASE_URL = 'https://api.apilayer.com/exchangerates_data';

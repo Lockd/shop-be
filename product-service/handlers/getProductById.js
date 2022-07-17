@@ -1,27 +1,32 @@
 "use strict";
-import { getProductListWithEuroPrices } from '../utils/misc'
+import { getProductListWithEuroPrices, getUsdToEuroRatio } from '../utils/misc';
+import { GET_HEADERS, PRODUCT_NOT_FOUND_MESSAGE } from '../utils/constants';
 
-export const handler = async (event) => {
+export const getResponseProductsById = (searchResult) => {
+  if (!searchResult) {
+    return {
+      statusCode: 404,
+      body: JSON.stringify({
+        message: PRODUCT_NOT_FOUND_MESSAGE
+      }),
+      headers: GET_HEADERS
+    }
+  }
+
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      data: searchResult
+    }),
+    headers: GET_HEADERS
+  }
+}
+
+export const getProductById = async (event) => {
   const id = event.path.split('products/')[1] || '';
-  const productsList = await getProductListWithEuroPrices();
+  const usdToEuroRatio = await getUsdToEuroRatio();
+  const productsList = await getProductListWithEuroPrices(usdToEuroRatio);
   const searchResult = productsList.find(el => el.id === id);
   
-  let responseBody = {};
-  let statusCode = 200;
-  if (searchResult) {
-    responseBody.data = searchResult;
-  } else {
-    responseBody.message = 'Sorry, we were not able to find this item';
-    statusCode = 404;
-  }
-  
-  return {
-    statusCode: statusCode,
-    headers: {
-      "Access-Control-Allow-Headers" : "Content-Type",
-      "Access-Control-Allow-Origin": "http://localhost:3000",
-      "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
-    },
-    body: JSON.stringify(responseBody),
-  };
+  return getResponseProductsById(searchResult);
 };

@@ -14,6 +14,4 @@ Implemented functions:
 - Async/await is used to determine item price in euros. Base price is speicified in USD
 - Webpack is configured
 - ES6 modules are supported and used
-
-## Not done yet
-+1 - unit tests
+- Added Jest and test coverage both for util functions and handlers
