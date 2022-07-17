@@ -8,7 +8,7 @@ Implemented functions:
 - error for getProductById - https://z1tvhyxaxg.execute-api.eu-west-1.amazonaws.com/dev/products/any-other-string  
 
 ## Additional tasks
-- swagger documentation https://app.swaggerhub.com/apis/PIKAGRIGORIY/swagger-for_pottery_shop/1.0.0  
+- swagger documentation https://app.swaggerhub.com/apis/PIKAGRIGORIY/swagger-for_pottery_shop/1.0.1  
 - Lambda handlers (getProductsList, getProductsById) code is written not in 1 single module (file) and separated in codebase.
 - Main error scenarios are handled by API (product not found example)
 - Async/await is used to determine item price in euros. Base price is speicified in USD
