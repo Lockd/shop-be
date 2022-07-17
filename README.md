@@ -6,6 +6,7 @@ Implemented functions:
 - getProductsList - https://z1tvhyxaxg.execute-api.eu-west-1.amazonaws.com/dev/products
 - getProductById - https://z1tvhyxaxg.execute-api.eu-west-1.amazonaws.com/dev/products/7567ec4b-b10c-48c5-9345-fc73c48a80aa  
 - error for getProductById - https://z1tvhyxaxg.execute-api.eu-west-1.amazonaws.com/dev/products/any-other-string  
+- frontend implementation can be seen here https://dhze4aixe37ki.cloudfront.net/  
 
 ## Additional tasks
 - swagger documentation https://app.swaggerhub.com/apis/PIKAGRIGORIY/swagger-for_pottery_shop/1.0.1  

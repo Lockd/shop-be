@@ -25,7 +25,7 @@ export const PRODUCT_LIST = [
 
 export const GET_HEADERS = {
   "Access-Control-Allow-Headers" : "Content-Type",
-  "Access-Control-Allow-Origin": "http://localhost:3000",
+  "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "OPTIONS, GET"
 }
 
