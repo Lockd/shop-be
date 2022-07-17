@@ -71,7 +71,7 @@ definitions:
         type: "number"
         example: 27.53
       priceEUR:
-        type: "number",
+        type: "number"
         example: 26.38
       count:
         type: "integer"
