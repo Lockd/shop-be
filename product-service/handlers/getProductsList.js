@@ -1,6 +1,6 @@
 "use strict";
-import { getProductListWithEuroPrices, getUsdToEuroRatio } from "../utils/misc";
 import { GET_HEADERS } from "../utils/constants";
+import { singleQueryToDb } from "../utils/DbOperations";
 
 export const getResponseWithProductsList = (products) => ({
   statusCode: 200,
@@ -11,8 +11,7 @@ export const getResponseWithProductsList = (products) => ({
 });
 
 export const getProductsList = async (event) => {
-  const usdToEuroRatio = await getUsdToEuroRatio();
-  const productsWithEuroPrices = await getProductListWithEuroPrices(usdToEuroRatio);
+  const products = await singleQueryToDb("select * from product inner join stock on stock.product_id=product.id");
 
-  return getResponseWithProductsList(productsWithEuroPrices);
+  return getResponseWithProductsList(products);
 };

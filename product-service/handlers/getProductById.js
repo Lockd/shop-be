@@ -1,32 +1,33 @@
 "use strict";
-import { getProductListWithEuroPrices, getUsdToEuroRatio } from '../utils/misc';
-import { GET_HEADERS, PRODUCT_NOT_FOUND_MESSAGE } from '../utils/constants';
+import { GET_HEADERS, PRODUCT_NOT_FOUND_MESSAGE } from "../utils/constants";
+import { singleQueryToDb } from "../utils/DbOperations";
 
 export const getResponseProductsById = (searchResult) => {
   if (!searchResult) {
     return {
       statusCode: 404,
       body: JSON.stringify({
-        message: PRODUCT_NOT_FOUND_MESSAGE
+        message: PRODUCT_NOT_FOUND_MESSAGE,
       }),
-      headers: GET_HEADERS
-    }
+      headers: GET_HEADERS,
+    };
   }
 
   return {
     statusCode: 200,
     body: JSON.stringify({
-      data: searchResult
+      data: searchResult,
     }),
-    headers: GET_HEADERS
-  }
-}
+    headers: GET_HEADERS,
+  };
+};
 
 export const getProductById = async (event) => {
-  const id = event.path.split('products/')[1] || '';
-  const usdToEuroRatio = await getUsdToEuroRatio();
-  const productsList = await getProductListWithEuroPrices(usdToEuroRatio);
-  const searchResult = productsList.find(el => el.id === id);
-  
+  const { productId } = event.pathParameters;
+  const searchResult = await singleQueryToDb(
+    'select p.id, p.title, p.description, p.price, s.count from product as p ' +
+    `inner join "stock" as s on p.id = s.product_id and p.id = '${productId}'`
+  );
+
   return getResponseProductsById(searchResult);
 };
