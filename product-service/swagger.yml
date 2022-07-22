@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   description: "API documentation for AWS epam courses \n https://github.com/Lockd"
-  version: "1.0.0"
+  version: 1.0.2
   title: "Swagger for pottery shop"
 host: "z1tvhyxaxg.execute-api.eu-west-1.amazonaws.com"
 basePath: "/"
@@ -31,8 +31,13 @@ paths:
           schema:
             $ref: "#/definitions/ListOfProducts"
   
-  /products/id:
+  /products/{productId}:
     get:
+      parameters: 
+        - in: path
+          name: productId
+          required: true
+          type: string
       tags:
       - "products"
       summary: "Get product by id"
@@ -50,6 +55,7 @@ paths:
             $ref: "#/definitions/Product"
         "404":
           description: "item with selected id is not found"
+
         
     
 definitions:
