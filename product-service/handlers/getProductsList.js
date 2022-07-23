@@ -11,7 +11,12 @@ export const getResponseWithProductsList = (products) => ({
 });
 
 export const getProductsList = async (event) => {
-  const products = await singleQueryToDb("select * from product inner join stock on stock.product_id=product.id");
+  console.log('event object for getProductsList ', event);
+
+  const products = await singleQueryToDb(
+    "select * from product inner join stock on stock.product_id=product.id",
+    'get products list'
+  ).catch(e => console.log('error occured while connecting to db', e));
 
   return getResponseWithProductsList(products);
 };

@@ -7,11 +7,14 @@ provider:
   
   stage: dev
   region: eu-west-1
+  
+  environment:
+    # NODE_TLS_REJECT_UNAUTHORIZED: 0
 
 plugins:
   - serverless-dotenv-plugin
   - serverless-webpack
-	
+
 custom:
   webpack:
     webpackConfig: ./webpack.config.js

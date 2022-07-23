@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "deploy": "serverless deploy"
   },
   "author": "",
   "license": "ISC",
