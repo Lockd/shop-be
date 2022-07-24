@@ -12,8 +12,11 @@ export const getIsPayloadValid = ({ title, description, count, price }) => {
   if (
     !typeof title === "string" ||
     !typeof description === "string" ||
+    !title ||
     !Number.isInteger(+price) ||
-    !Number.isInteger(+count)
+    !Number.isInteger(+count) ||
+    +price < 0 ||
+    +count < 0
   ) {
     return false;
   }
