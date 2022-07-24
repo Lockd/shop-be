@@ -2,6 +2,7 @@
 import { MESSAGES, STATUS_CODES } from "../utils/constants";
 import { singleQueryToDb } from "../utils/DbOperations";
 import lambdaWrapper from '../utils/lambdaWrapper';
+import { isUuidValid } from "../utils/misc";
 
 export const getResponseProductsById = (searchResult) => {
   if (!searchResult || !searchResult?.length) {
@@ -19,6 +20,12 @@ export const getResponseProductsById = (searchResult) => {
 
 export const getProductById = lambdaWrapper(async (event) => {
   const { productId } = event.pathParameters;
+
+  if (!isUuidValid(productId)) {
+    // if uuid is invalid we still want to return unfound message and 404 code
+    return getResponseProductsById(null);
+  }
+
   const searchResult = await singleQueryToDb(
     'select p.id, p.title, p.description, p.price, s.count from product as p ' +
     `inner join "stock" as s on p.id = s.product_id and p.id = '${productId}'`,

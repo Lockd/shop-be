@@ -9,5 +9,10 @@ export const getProductsList = lambdaWrapper(async (event) => {
     'get products list'
   )
 
-  return { statusCode: STATUS_CODES.OK, body: products };
+  return {
+    statusCode: STATUS_CODES.OK,
+    body: {
+      products
+    }
+  };
 });
