@@ -4,7 +4,17 @@ export const DEFAULT_HEADERS = {
   "Access-Control-Allow-Methods": "OPTIONS, GET"
 };
 
-export const PRODUCT_NOT_FOUND_MESSAGE = 'Sorry, we were not able to find this item';
-export const PRODUCT_ADDED_MESSAGE = 'Product is succesfully added';
-export const INVALID_INPUT_MESSAGE = 'Invalid payload';
-export const DB_CONNECTION_ERROR_MESSAGE = 'Error occured while working with database';
+export const MESSAGES = {
+  PRODUCT_NOT_FOUND: 'Sorry, we were not able to find this item',
+  PRODUCT_ADDED: 'Product is succesfully added',
+  INVALID_INPUT: 'Invalid payload',
+  DB_CONNECTION_ERROR: 'Error occured while working with database',
+  UNKONWN_ERROR: 'Unknown error occured', 
+};
+
+export const STATUS_CODES = {
+  OK: 200,
+  BAD_REQUEST: 400,
+  NOT_FOUND: 404,
+  SERVER_ERROR: 500,
+};

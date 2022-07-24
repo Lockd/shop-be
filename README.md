@@ -14,7 +14,4 @@ Implemented functions:
 - event object is logged for each function
 - POST /products lambda functions returns error 400 status code if product data is invalid
 - Transaction based creation of product (in case stock creation is failed then related to this stock product is not created and not ready to be used by the end user and vice versa). Since this request is implemented as singular SQL command it can not be finished partially: if one part fails second will not be executed and vice versa
-
-
-## Not finished 
 - All lambdas return error 500 status code on any error (DB connection, any unhandled error in code)

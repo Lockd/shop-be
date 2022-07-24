@@ -1,29 +1,23 @@
 "use strict";
-import { DEFAULT_HEADERS, PRODUCT_NOT_FOUND_MESSAGE } from "../utils/constants";
+import { MESSAGES, STATUS_CODES } from "../utils/constants";
 import { singleQueryToDb } from "../utils/DbOperations";
-import { logger } from '../utils/misc';
+import lambdaWrapper from '../utils/lambdaWrapper';
 
 export const getResponseProductsById = (searchResult) => {
   if (!searchResult || !searchResult?.length) {
     return {
-      statusCode: 404,
-      body: JSON.stringify({
-        message: PRODUCT_NOT_FOUND_MESSAGE,
-      }),
-      headers: DEFAULT_HEADERS,
+      statusCode: STATUS_CODES.NOT_FOUND,
+      body: { message: MESSAGES.PRODUCT_NOT_FOUND },
     };
   }
 
   return {
-    statusCode: 200,
-    body: JSON.stringify({
-      data: searchResult,
-    }),
-    headers: DEFAULT_HEADERS,
+    statusCode: STATUS_CODES.OK,
+    body: { data: searchResult },
   };
 };
 
-export const getProductById = logger(async (event) => {
+export const getProductById = lambdaWrapper(async (event) => {
   const { productId } = event.pathParameters;
   const searchResult = await singleQueryToDb(
     'select p.id, p.title, p.description, p.price, s.count from product as p ' +

@@ -16,13 +16,15 @@ export const singleQueryToDb = async (query, operationName) => {
   };
 
   const client = new Client(dbOptions);
-  await client.connect();
-
+  
   try {
+    await client.connect();
     const res = await client.query(query);
     return res.rows;
   } catch (e) {
-    console.error(`error occured when trying to ${operationName}`, e);
+    const errorMessage = `error occured when trying to ${operationName}: ${e}`;
+    console.error(errorMessage);
+    throw new Error(errorMessage);
   } finally {
     await client.end();
   }

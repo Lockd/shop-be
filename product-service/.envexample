@@ -3,6 +3,3 @@ PG_HOST=
 PG_DATABASE=
 PG_USERNAME=
 PG_PASS=
-
-# next line is for node to be able to connect to db
-NODE_TLS_REJECT_UNAUTHORIZED='0'
