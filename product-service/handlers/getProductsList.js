@@ -1,10 +1,10 @@
 "use strict";
-import { GET_HEADERS } from "../utils/constants";
+import { DEFAULT_HEADERS } from "../utils/constants";
 import { singleQueryToDb } from "../utils/DbOperations";
 
 export const getResponseWithProductsList = (products) => ({
   statusCode: 200,
-  headers: GET_HEADERS,
+  headers: DEFAULT_HEADERS,
   body: JSON.stringify({
     products: products,
   }),

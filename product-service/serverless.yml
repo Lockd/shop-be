@@ -7,9 +7,6 @@ provider:
   
   stage: dev
   region: eu-west-1
-  
-  environment:
-    # NODE_TLS_REJECT_UNAUTHORIZED: 0
 
 plugins:
   - serverless-dotenv-plugin
@@ -27,7 +24,14 @@ functions:
       - http:
           path: /products
           method: get
-          cors: true 
+          cors: true
+  addProduct:
+    handler: ./handlers/addProduct.addProduct
+    events:
+      - http:
+          path: /products
+          method: post
+          cors: true
   
   getProductById:
     handler: ./handlers/getProductById.getProductById

@@ -1,5 +1,5 @@
 "use strict";
-import { GET_HEADERS, PRODUCT_NOT_FOUND_MESSAGE } from "../utils/constants";
+import { DEFAULT_HEADERS, PRODUCT_NOT_FOUND_MESSAGE } from "../utils/constants";
 import { singleQueryToDb } from "../utils/DbOperations";
 
 export const getResponseProductsById = (searchResult) => {
@@ -9,7 +9,7 @@ export const getResponseProductsById = (searchResult) => {
       body: JSON.stringify({
         message: PRODUCT_NOT_FOUND_MESSAGE,
       }),
-      headers: GET_HEADERS,
+      headers: DEFAULT_HEADERS,
     };
   }
 
@@ -18,7 +18,7 @@ export const getResponseProductsById = (searchResult) => {
     body: JSON.stringify({
       data: searchResult,
     }),
-    headers: GET_HEADERS,
+    headers: DEFAULT_HEADERS,
   };
 };
 
