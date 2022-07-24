@@ -5,7 +5,7 @@
 ## Main tasks
 Implemented functions:
 - getProductsList - https://z1tvhyxaxg.execute-api.eu-west-1.amazonaws.com/dev/products
-- getProductById - https://z1tvhyxaxg.execute-api.eu-west-1.amazonaws.com/dev/products/7567ec4b-b10c-48c5-9345-fc73c48a80aa  
+- getProductById - https://z1tvhyxaxg.execute-api.eu-west-1.amazonaws.com/dev/products/9f95af9e-7087-41ec-ba49-6815d4834780  
 - error for getProductById - https://z1tvhyxaxg.execute-api.eu-west-1.amazonaws.com/dev/products/any-other-string 
 - add new product POST request - https://z1tvhyxaxg.execute-api.eu-west-1.amazonaws.com/dev/products?title=test-title&description=test-description&count=12&price=38
 - frontend implementation can be seen here https://dhze4aixe37ki.cloudfront.net/  
