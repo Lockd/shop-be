@@ -1,6 +1,7 @@
 "use strict";
 import { DEFAULT_HEADERS, PRODUCT_NOT_FOUND_MESSAGE } from "../utils/constants";
 import { singleQueryToDb } from "../utils/DbOperations";
+import { logger } from '../utils/misc';
 
 export const getResponseProductsById = (searchResult) => {
   if (!searchResult || !searchResult?.length) {
@@ -22,8 +23,7 @@ export const getResponseProductsById = (searchResult) => {
   };
 };
 
-export const getProductById = async (event) => {
-  console.log('event object for getProductById ', event);
+export const getProductById = logger(async (event) => {
   const { productId } = event.pathParameters;
   const searchResult = await singleQueryToDb(
     'select p.id, p.title, p.description, p.price, s.count from product as p ' +
@@ -32,4 +32,4 @@ export const getProductById = async (event) => {
   );
 
   return getResponseProductsById(searchResult);
-};
+});
