@@ -9,6 +9,7 @@ Implemented functions:
 - error for getProductById - https://z1tvhyxaxg.execute-api.eu-west-1.amazonaws.com/dev/products/any-other-string 
 - add new product POST request - https://z1tvhyxaxg.execute-api.eu-west-1.amazonaws.com/dev/products?title=test-title&description=test-description&count=12&price=38
 - frontend implementation can be seen here https://dhze4aixe37ki.cloudfront.net/  
+- swagger documentation - https://app.swaggerhub.com/apis/PIKAGRIGORIY/swagger-for_pottery_shop/1.0.2
 
 ## Additional tasks
 - event object is logged for each function

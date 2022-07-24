@@ -31,6 +31,41 @@ paths:
           schema:
             $ref: "#/definitions/ListOfProducts"
   
+    post:
+      parameters: 
+        - in: query
+          name: title
+          type: string
+          description: Product title
+          required: true
+        - in: query
+          name: description
+          type: string
+          description: Product description
+        - in: query
+          name: price
+          type: integer
+          description: Product price, should be positive value
+          required: true
+        - in: query
+          name: count
+          type: integer
+          description: Amount of available products, positive value
+          required: true
+      tags:
+      - "products"
+      summary: "Add new product"
+      description: ""
+      operationId: "addProducts"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
   /products/{productId}:
     get:
       parameters: 
@@ -55,8 +90,6 @@ paths:
             $ref: "#/definitions/Product"
         "404":
           description: "item with selected id is not found"
-
-        
     
 definitions:
   Product:
