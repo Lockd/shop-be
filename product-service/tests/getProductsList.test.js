@@ -1,13 +1,20 @@
-import { getResponseWithProductsList } from '../handlers/getProductsList';
-import { PRODUCT_LIST } from '../utils/constants';
+import { getProductsList } from '../handlers/getProductsList';
+import { STATUS_CODES } from '../utils/constants';
+import * as dbOperations from '../utils/DbOperations';
+import { PRODUCT_LIST_MOCK } from '../utils/constants';
+jest.mock('../utils/DbOperations');
 
-describe('function response is formed properly', () => {
-  const response = getResponseWithProductsList(PRODUCT_LIST);
+describe('Get product list function', () => {
+  it('should return 200 status', async () => {
+    (dbOperations.singleQueryToDb).mockImplementation(
+      () => Promise.resolve(PRODUCT_LIST_MOCK)
+    )
+    const response = await getProductsList({});
 
-  it('status code is 200', () => {
-    expect(response.statusCode).toBe(200)
-  })
-  it('body contains stringified list of products', () => {
-    expect(response.body).toEqual(JSON.stringify({ products: PRODUCT_LIST }))
+    console.log('response', response)
+
+    expect(dbOperations.singleQueryToDb).toBeCalled();
+    expect(response.statusCode).toBe(STATUS_CODES.OK);
+    expect(JSON.parse(response.body).products).toEqual(PRODUCT_LIST_MOCK);
   })
 })

@@ -1,18 +1,18 @@
 "use strict";
-import { getProductListWithEuroPrices, getUsdToEuroRatio } from "../utils/misc";
-import { GET_HEADERS } from "../utils/constants";
+import { singleQueryToDb } from "../utils/DbOperations";
+import { STATUS_CODES } from "../utils/constants";
+import lambdaWrapper from '../utils/lambdaWrapper';
 
-export const getResponseWithProductsList = (products) => ({
-  statusCode: 200,
-  headers: GET_HEADERS,
-  body: JSON.stringify({
-    products: products,
-  }),
+export const getProductsList = lambdaWrapper(async (event) => {
+  const products = await singleQueryToDb(
+    "select * from product inner join stock on stock.product_id=product.id",
+    'get products list'
+  )
+
+  return {
+    statusCode: STATUS_CODES.OK,
+    body: {
+      products
+    }
+  };
 });
-
-export const getProductsList = async (event) => {
-  const usdToEuroRatio = await getUsdToEuroRatio();
-  const productsWithEuroPrices = await getProductListWithEuroPrices(usdToEuroRatio);
-
-  return getResponseWithProductsList(productsWithEuroPrices);
-};

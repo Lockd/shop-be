@@ -1,32 +1,36 @@
 "use strict";
-import { getProductListWithEuroPrices, getUsdToEuroRatio } from '../utils/misc';
-import { GET_HEADERS, PRODUCT_NOT_FOUND_MESSAGE } from '../utils/constants';
+import { MESSAGES, STATUS_CODES } from "../utils/constants";
+import { singleQueryToDb } from "../utils/DbOperations";
+import lambdaWrapper from '../utils/lambdaWrapper';
+import { isUuidValid } from "../utils/misc";
 
 export const getResponseProductsById = (searchResult) => {
-  if (!searchResult) {
+  if (!searchResult || !searchResult?.length) {
     return {
-      statusCode: 404,
-      body: JSON.stringify({
-        message: PRODUCT_NOT_FOUND_MESSAGE
-      }),
-      headers: GET_HEADERS
-    }
+      statusCode: STATUS_CODES.NOT_FOUND,
+      body: { message: MESSAGES.PRODUCT_NOT_FOUND },
+    };
   }
 
   return {
-    statusCode: 200,
-    body: JSON.stringify({
-      data: searchResult
-    }),
-    headers: GET_HEADERS
-  }
-}
-
-export const getProductById = async (event) => {
-  const id = event.path.split('products/')[1] || '';
-  const usdToEuroRatio = await getUsdToEuroRatio();
-  const productsList = await getProductListWithEuroPrices(usdToEuroRatio);
-  const searchResult = productsList.find(el => el.id === id);
-  
-  return getResponseProductsById(searchResult);
+    statusCode: STATUS_CODES.OK,
+    body: { data: searchResult },
+  };
 };
+
+export const getProductById = lambdaWrapper(async (event) => {
+  const { productId } = event.pathParameters;
+
+  if (!isUuidValid(productId)) {
+    // if uuid is invalid we still want to return unfound message and 404 code
+    return getResponseProductsById(null);
+  }
+
+  const searchResult = await singleQueryToDb(
+    'select p.id, p.title, p.description, p.price, s.count from product as p ' +
+    `inner join "stock" as s on p.id = s.product_id and p.id = '${productId}'`,
+    'get product by id'
+  );
+
+  return getResponseProductsById(searchResult);
+});
