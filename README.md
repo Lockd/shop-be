@@ -8,6 +8,8 @@ Backend for node JS + AWS course application
 ✅ Frontend application is integrated with importProductsFile lambda  
 ✅ The importFileParser lambda function is implemented and serverless.yml contains configuration for the lambda  
 
+importProductsFile url - https://32tn1yf68d.execute-api.eu-west-1.amazonaws.com/dev/import?name=file-name.csv
+
 Frontend can be checked here - https://dhze4aixe37ki.cloudfront.net/admin/products
 Frontend pr - https://github.com/Lockd/shop-react-redux-cloudfront/pull/3
 
