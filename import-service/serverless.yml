@@ -22,7 +22,24 @@ plugins:
   - serverless-dotenv-plugin
   - serverless-webpack
 
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
+
 functions:
+  imageUpload:
+    handler: ./handlers/importFileParser.importFileParser
+    events:
+      - s3:
+          bucket: s3-serverless-integration
+          event: s3:ObjectCreated:*
+          rules:
+            - prefix: uploaded/
+          existing: true
+          forceDeploy: true
+
   importProductsFile:
     handler: ./handlers/importProductsFile.importProductsFile
     events:
@@ -31,25 +48,6 @@ functions:
           method: get
           cors: true
           request:
-            template:
-              application/json: >
-                {
-                  "name" : "$input.params('name')"
-                }
-
-  # thumbnailList:
-  #   handler: handler.thumbnailList
-  #   events:
-  #     - http:
-  #         path: /thumbnails
-  #         method: get
-  #         cors: true
-  # imageUpload:
-  #   handler: handler.imageUpload
-  #   events:
-  #     - s3:
-  #         bucket: s3-serverless-integration
-  #         event: s3:ObjectCreated:*
-  #         rules:
-  #           - prefix: images/
-  #         existing: true
+            parameters:
+              querystrings:
+                name: true

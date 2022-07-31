@@ -17,3 +17,5 @@ export const MESSAGES = {
   INVALID_INPUT: 'Invalid payload',
   UNKONWN_ERROR: 'Unknown error occured', 
 };
+
+export const AWS_REGION = 'eu-west-1';
