@@ -1,19 +1,11 @@
 # shop-be
 Backend for node JS + AWS course application
 
-# Task 5
+# Task 6
 ## Main tasks
-✅ File serverless.yml contains configuration for importProductsFile function  
-✅ The importProductsFile lambda function returns a correct response which can be used to upload a file into the S3 bucket  
-✅ Frontend application is integrated with importProductsFile lambda  
-✅ The importFileParser lambda function is implemented and serverless.yml contains configuration for the lambda  
+✅ File serverless.yml contains configuration for catalogBatchProcess function
+✅ File serverless.yml contains policies to allow lambda catalogBatchProcess function to interact with SNS and SQS
+✅ File serverless.yml contains configuration for SQS catalogItemsQueue
+✅ File serverless.yml contains configuration for SNS Topic createProductTopic and email subscription
 
-importProductsFile url - https://32tn1yf68d.execute-api.eu-west-1.amazonaws.com/dev/import?name=file-name.csv
-
-Frontend can be checked here - https://dhze4aixe37ki.cloudfront.net/admin/products
-Frontend pr - https://github.com/Lockd/shop-react-redux-cloudfront/pull/3
-
-## Additional (optional) tasks
-✅ async/await is used in lambda functions  
-✅ importProductsFile lambda is covered by unit tests
-✅ At the end of the stream the lambda function should move the file from the uploaded folder into the parsed folder (move the file means that file should be copied into a new folder in the same bucket called parsed, and then deleted from uploaded folder)  
+Only required tasks are finished, 4/6
