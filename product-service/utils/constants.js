@@ -9,7 +9,7 @@ export const MESSAGES = {
   PRODUCT_ADDED: 'Product is succesfully added',
   INVALID_INPUT: 'Invalid payload',
   DB_CONNECTION_ERROR: 'Error occured while working with database',
-  UNKONWN_ERROR: 'Unknown error occured', 
+  UNKONWN_ERROR: 'Unknown error occured',
 };
 
 export const STATUS_CODES = {
@@ -44,3 +44,5 @@ export const PRODUCT_LIST_MOCK = [
     title: "Clay bowl ha-ha u fat",
   },
 ];
+
+export const AWS_REGION = 'eu-west-1';

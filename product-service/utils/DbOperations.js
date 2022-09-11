@@ -29,3 +29,13 @@ export const singleQueryToDb = async (query, operationName) => {
     await client.end();
   }
 };
+
+export const addProductQuery = async ({ title, description, price, count }) => {
+  await singleQueryToDb(
+    "with rows as (" +
+      `insert into product (title, description, price) VALUES ('${title}', '${description}', ${+price}) returning id` +
+    ")" +
+    `insert into stock (product_id, count) select id, ${+count} from rows`,
+    "add new product"
+  );
+}

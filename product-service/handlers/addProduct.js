@@ -1,6 +1,6 @@
 "use strict";
 import { MESSAGES, STATUS_CODES } from "../utils/constants";
-import { singleQueryToDb } from "../utils/DbOperations";
+import { singleQueryToDb, addProductQuery } from "../utils/DbOperations";
 import lambdaWrapper from "../utils/lambdaWrapper";
 
 export const getResponseForAddProduct = (code, message) => ({
@@ -33,13 +33,7 @@ export const addProduct = lambdaWrapper(async (event) => {
 
   const { title, description, count, price } = event.queryStringParameters;
 
-  await singleQueryToDb(
-    "with rows as (" +
-      `insert into product (title, description, price) VALUES ('${title}', '${description}', ${+price}) returning id` +
-      ")" +
-      `insert into stock (product_id, count) select id, ${+count} from rows`,
-    "add new product"
-  );
+  await addProductQuery({ title, description, count, price});
 
   return getResponseForAddProduct(STATUS_CODES.OK, MESSAGES.PRODUCT_ADDED);
 });

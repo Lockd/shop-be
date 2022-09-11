@@ -21,6 +21,11 @@ provider:
         - s3:DeleteObject
       Resource:
         - "arn:aws:s3:::s3-serverless-integration/*"
+    - Effect: "Allow"
+      Action:
+        - sqs:SendMessage
+      Resource:
+        - "arn:aws:sqs:eu-west-1:866425894734:catalogItemsQueue"
 
 plugins:
   - serverless-dotenv-plugin

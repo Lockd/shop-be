@@ -1,9 +1,15 @@
 "use strict";
-import { BUCKET, STATUS_CODES } from '../utils/constants';
+import { BUCKET, STATUS_CODES, AWS_REGION } from '../utils/constants';
 import lambdaWrapper from '../utils/lambdaWrapper';
 import { getObject, deleteObject, copyObject } from '../s3';
+import csv from 'csv-parser';
+import { SQSClient, SendMessageCommand } from "@aws-sdk/client-sqs";
+
+const sqs = new SQSClient({ region: AWS_REGION });
 
 export const importFileParser = lambdaWrapper(async (event) => {
+  const { SQS_QUEUE_URL } = process.env;
+
   for (const record of event.Records) {
     const params = {
       Bucket: BUCKET,
@@ -13,13 +19,19 @@ export const importFileParser = lambdaWrapper(async (event) => {
     const { Body: csvStream } = await getObject(params);
 
     await csvStream
-      .on('data', data => console.log('data from read stream ', data))
+      .pipe(csv())
+      .on('data', async (data) => {
+        const sqsRequest = {
+          QueueUrl: SQS_QUEUE_URL,
+          MessageBody: JSON.stringify(data),
+        };
+        await sqs.send(new SendMessageCommand(sqsRequest));
+      })
       .on('error', e => {
         const errorMessage = `error occured when trying to ${operationName}: ${e}`;
         console.error(errorMessage);
         throw new Error(errorMessage);
-      })
-      .on('end', () => console.log('file was read succesfully'))
+      });
 
     await copyObject({
       Bucket: BUCKET,

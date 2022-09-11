@@ -8,9 +8,40 @@ provider:
   stage: dev
   region: eu-west-1
 
+  environment:
+    SNS_TOPIC_ARN: { Ref: SNSTopic }
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action: "sqs:*"
+      Resource:
+        - Fn::GetAtt: [ SQSQueue, Arn ]
+    - Effect: "Allow"
+      Action: "sns:*"
+      Resource:
+        Ref: SNSTopic
+
 plugins:
   - serverless-dotenv-plugin
   - serverless-webpack
+
+resources:
+  Resources:
+    SQSQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: catalogItemsQueue
+    SNSTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: createProductTopic
+    SNSSubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: "pikagrigoriy@gmail.com"
+        Protocol: "email"
+        TopicArn:
+          Ref: SNSTopic
 
 custom:
   webpack:
@@ -39,5 +70,14 @@ functions:
       - http:
           path: /products/{productId}
           method: get
-          cors: true 
+          cors: true
 
+  catalogBatchProcess:
+    handler: ./handlers/catalogBatchProcess.catalogBatchProcess
+    events:
+      - sqs:
+          batchSize: 5
+          arn:
+            Fn::GetAtt:
+              - SQSQueue
+              - Arn
