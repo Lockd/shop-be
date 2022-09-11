@@ -1,0 +1,27 @@
+service: authorization-service
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  
+  stage: dev
+  region: eu-west-1
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-webpack
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
+
+functions:
+  basicAuthorizer:
+    handler: ./handlers/basicAuthorizer.basicAuthorizer
+    events:
+      - http:
+          path: /token
+          method: get
+          cors: true
